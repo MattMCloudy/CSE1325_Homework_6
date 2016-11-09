@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Part">
+      <UniqueIdentifier>{8f0109b4-90b6-4697-b87b-cec1ac26abcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{d7a101b1-fa5f-464e-a041-13fd7cf17f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Robot">
+      <UniqueIdentifier>{d20fffd5-3c9d-46ff-ab58-83c767b1f41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateManager">
+      <UniqueIdentifier>{8ea54a59-57b4-46e8-bb50-6a143c50d688}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Arm.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Battery.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Head.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Leg.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Locomotor.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Part.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Part\Torso.cpp">
+      <Filter>Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\RobotFactory.cpp">
+      <Filter>Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot\Robot.cpp">
+      <Filter>Robot</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>StateManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Part\Arm.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Battery.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Head.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Leg.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Locomotor.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Part.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Part\Torso.h">
+      <Filter>Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\RobotFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot\Robot.h">
+      <Filter>Robot</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>StateManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
