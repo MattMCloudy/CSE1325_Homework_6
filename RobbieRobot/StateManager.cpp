@@ -23,9 +23,18 @@ void StateManager::createTabs() {
 	Fl_Group *cust_tab = new Fl_Group(10,55, 780,450, "Customer"); 
 		cust_tab->color(4294967040);
 		cust_tab->selection_color(4294967040);
-		Fl_Button* button_catalog = new Fl_Button(30, 125, 100, 30, "Catalog");
-		Fl_Input* input_purchase = new Fl_Input(30, 200, 300, 30, "Which robot would you like to buy?");
+		Fl_Button* button_catalog = new Fl_Button(30, 150, 100, 30, "Catalog");
+		button_catalog->color(785150208);
+		button_catalog->labelcolor(FL_WHITE);
+		button_catalog->labelfont(FL_COURIER_BOLD);
+		Fl_Input* input_purchase = new Fl_Input(30, 225, 300, 30, "Which robot would you like to buy?");
 		input_purchase->align(FL_ALIGN_TOP);
+		input_purchase->labelfont(FL_COURIER_BOLD);
+		
+		Fl_Input* input_cust_sales_rec = new Fl_Input(30, 300, 300, 30, "Enter your name to see past purchases");
+		input_cust_sales_rec->align(FL_ALIGN_TOP);
+		input_cust_sales_rec->labelfont(FL_COURIER_BOLD);
+
 	cust_tab->end();
 
 	Fl_Group *pm_tab = new Fl_Group(10,55,780,450, "Product Manager");
