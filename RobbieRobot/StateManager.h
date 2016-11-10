@@ -5,6 +5,8 @@
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Group.h>
 #include <FL/Fl_Tabs.h>
+#include <FL/Fl_Button.h>
+#include <FL/Fl_Input.h>
 
 enum State {
 	WELCOME
@@ -23,8 +25,6 @@ private:
 	void createTabs();
 	void render();
 	void changeState(State state);
-	void tabCallback();
-
 public:
 	StateManager(Fl_Window * window) : curState(WELCOME), win(window) {
 		this->createMenuBar();
