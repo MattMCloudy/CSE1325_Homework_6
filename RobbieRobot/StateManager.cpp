@@ -11,7 +11,8 @@ void quitCB(Fl_Widget * widget, void * ptr) {
 }
 
 void catalogCB(Fl_Widget *w, void* ptr) {
-
+	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
+	output->show();
 
 }
 
@@ -36,11 +37,17 @@ void StateManager::createTabs() {
 		
 		Fl_Box *cust_box = new Fl_Box(225, 100, 10, 10);
 		cust_box->image(*png);
+		
+
+		Fl_Multiline_Output *output = new Fl_Multiline_Output(500, 175, 200, 200);
+		output->value("one\ntwo\n");
+		output->hide();
 
 		Fl_Button* button_catalog = new Fl_Button(30, 175, 100, 30, "Catalog");
 		button_catalog->color(785150208);
 		button_catalog->labelcolor(FL_WHITE);
 		button_catalog->labelfont(FL_COURIER_BOLD);
+		button_catalog->callback(catalogCB, output);
 
 		Fl_Input* input_purchase = new Fl_Input(30, 250, 300, 30, "Which robot would you like to buy?");
 		input_purchase->align(FL_ALIGN_TOP);
