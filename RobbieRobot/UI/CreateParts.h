@@ -1,6 +1,9 @@
 #ifndef CREATE_PARTS_H_
 #define CREATE_PARTS_H_
 
+#include <string>
+#include <iostream>
+#include <vector>
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Window.H>
