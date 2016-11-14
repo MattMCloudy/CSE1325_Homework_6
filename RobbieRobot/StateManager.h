@@ -11,6 +11,7 @@
 #include <FL/Fl_Text_Display.h>
 #include <FL/Fl_Multiline_Output.h>
 #include <FL/Fl_PNG_Image.h>
+#include "Factory/RobotFactory.h"
 
 enum State {
 	WELCOME
@@ -29,7 +30,7 @@ private:
 	void createMenuBar();
 	void createTabs();
 	void render();
-	void changeState(State state);
+
 public:
 	StateManager(Fl_Window * window) : curState(WELCOME), win(window) {
 		this->createMenuBar();
@@ -39,5 +40,8 @@ public:
 
 		Fl::run();
 	};
-};
 
+	void changeState(State state);
+
+	void createMenu() {};
+};

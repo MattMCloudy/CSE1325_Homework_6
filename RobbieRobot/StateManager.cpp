@@ -1,4 +1,7 @@
 #include "StateManager.h"
+
+RobotFactory * factory = new RobotFactory();
+
 #define CREAM 4294964992
 
 void tabCallback(Fl_Widget *w, void* ptr) {
@@ -10,34 +13,37 @@ void quitCB(Fl_Widget * widget, void * ptr) {
 	exit(0);
 }
 
-void catalogCB(Fl_Widget *w, void* ptr) {
-	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
-	output->show();
+void createPartCB(Fl_Widget * widget, void * ptr) {
 
 }
 
+void catalogCB(Fl_Widget *w, void* ptr) {
+	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
+	output->show();
+}
 
 void StateManager::createMenuBar() {
 	this->menu = new Fl_Menu_Bar(0, 0, 800, 25);
 
 	menu->add("File/Quit", FL_CTRL + 'q', quitCB);
+	menu->add("Robot/Create Parts", FL_CTRL + 'n', createPartCB);
 }
 
 void StateManager::createTabs() {
-	
+
 	this->tabs = new Fl_Tabs(10, 30, 780, 500);
 	tabs->callback(tabCallback, NULL);
-		
+
 	Fl_PNG_Image *png = new Fl_PNG_Image("RobbiesLogo.png");
 
-	Fl_Group *cust_tab = new Fl_Group(10,55, 780,450, "Customer"); 
+	Fl_Group *cust_tab = new Fl_Group(10,55, 780,450, "Customer");
 		cust_tab->labelfont(FL_COURIER_BOLD);
 		cust_tab->color(CREAM);
 		cust_tab->selection_color(CREAM);
-		
+
 		Fl_Box *cust_box = new Fl_Box(225, 100, 10, 10);
 		cust_box->image(*png);
-		
+
 
 		Fl_Multiline_Output *output = new Fl_Multiline_Output(500, 175, 200, 200);
 		output->value("one\ntwo\n");
@@ -52,11 +58,11 @@ void StateManager::createTabs() {
 		Fl_Input* input_purchase = new Fl_Input(30, 250, 300, 30, "Which robot would you like to buy?");
 		input_purchase->align(FL_ALIGN_TOP);
 		input_purchase->labelfont(FL_COURIER_BOLD);
-		
+
 		Fl_Input* input_cust_sales_rec = new Fl_Input(30, 325, 300, 30, "Enter your name to see past purchases");
 		input_cust_sales_rec->align(FL_ALIGN_TOP);
 		input_cust_sales_rec->labelfont(FL_COURIER_BOLD);
-		
+
 	cust_tab->end();
 
 	Fl_Group *pm_tab = new Fl_Group(10,55,780,450, "Product Manager");
@@ -77,7 +83,7 @@ void StateManager::createTabs() {
 		Fl_Box *sa_box = new Fl_Box(225, 100, 10, 10);
 		sa_box->image(*png);
 	sa_tab->end();
-		
+
 	Fl_Group *boss_tab = new Fl_Group(10,55,780,450, "Boss");
 		boss_tab->labelfont(FL_COURIER_BOLD);
 		boss_tab->color(CREAM);
@@ -91,11 +97,11 @@ void StateManager::createTabs() {
 		help_tab->labelfont(FL_COURIER_BOLD);
 		help_tab->color(CREAM);
 		help_tab->selection_color(CREAM);
-		
+
 		Fl_Box *help_box = new Fl_Box(225, 100, 10, 10);
 		help_box->image(*png);
 	help_tab->end();
-	
+
 	tabs->selection_color( (tabs->value())->color() );
 	tabs->end();
 }

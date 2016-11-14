@@ -22,9 +22,6 @@ class Model {
 		//Locomotor locomotor;
 	public:
 		Model(string name , string ID, Head head, Arm l_arm, Arm r_arm, Torso torso, Leg l_leg, Battery battery);
-
-		
-	
 };
 
 #endif
