@@ -1,4 +1,5 @@
 #include "StateManager.h"
+
 #define CREAM 4294964992
 
 void tabCallback(Fl_Widget *w, void* ptr) {
