@@ -27,7 +27,7 @@ private:
     vector <Arm *> armParts;
 	vector <Locomotor *> locomotorParts;
 	vector <Robot *> models;
-
+	vector <Robot *> robots;
 public:
     RobotFactory();
 
@@ -54,7 +54,8 @@ public:
     const vector<Arm *> &getArmParts() const { return armParts; }
 	const vector<Locomotor *> &getLocomotorParts() const { return locomotorParts;}
     const vector<Robot *> &getModels() const { return models; }
-
+	const vector<Robot *> &getRobots() const { return robots; }
+	
 	Head* createHead();
 	Torso* createTorso();
 	Battery* createBattery();

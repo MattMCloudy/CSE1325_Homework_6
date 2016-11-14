@@ -1,6 +1,7 @@
 #ifndef STATEMANAGER_H_
 #define STATEMANAGER_H_
 
+#include <string>
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Window.H>
@@ -14,6 +15,8 @@
 #include <FL/Fl_Multiline_Output.h>
 #include <FL/Fl_PNG_Image.h>
 #include "UI/CreateParts.h"
+#include "Factory/RobotFactory.h"
+#include "Robot/Robot.h"
 
 enum State {
 	WELCOME
@@ -27,6 +30,7 @@ private:
 	Fl_Menu_Bar * menu;
 	Fl_Tabs *tabs;
 	bool catalogIsClicked;
+	static RobotFactory* factory;
 
 	void createWelcome();
 	void createMenuBar();
@@ -35,6 +39,7 @@ private:
 
 public:
 	StateManager(Fl_Window * window) : curState(WELCOME), win(window) {
+		factory = new RobotFactory();
 		this->createMenuBar();
 		this->createTabs();
 		this->win->end();

@@ -2,6 +2,8 @@
 
 #define CREAM 4294964992
 
+RobotFactory* StateManager::factory;
+
 void tabCallback(Fl_Widget *w, void* ptr) {
 	Fl_Tabs *tabs = (Fl_Tabs*)w;
 	tabs->selection_color( (tabs->value())->color());
@@ -17,13 +19,23 @@ void createPartCB(Fl_Widget * widget, void * ptr) {
 
 void catalogCB(Fl_Widget *w, void* ptr) {
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
+	StateManager::update(ptr);
 	output->show();
 }
 
 void StateManager::update(void * ptr) {
-	string result = "";
+	std::string result = "";
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
-	
+	vector<Robot *> robots = factory->getRobots();
+	if (robots.empty()){
+		output->value("We currently have no robots.\n");
+		return;
+	}
+
+	for (int i = 0; i < robots.size(); i++) {
+	     result = result + robots[i]->getName() + "\n";
+	}
+	output->value(result.c_str());	
 }
 
 void StateManager::createMenuBar() {

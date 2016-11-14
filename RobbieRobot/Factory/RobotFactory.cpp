@@ -13,10 +13,12 @@ void RobotFactory::createModel(string name, Head* head, Torso* torso, Battery* b
 }
 
 Robot * RobotFactory::createRobotFromModel(Robot * robot) {
+	robots.push_back(new Robot(*robot));
     return new Robot(*robot);
 }
 
 Robot * RobotFactory::createRobotFromModel(int i) {
+	robots.push_back(new Robot(*models[i]));
     return new Robot(*models[i]);
 }
 
