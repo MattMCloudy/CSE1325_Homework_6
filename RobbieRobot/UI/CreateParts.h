@@ -14,7 +14,10 @@
 #include <FL/Fl_Multiline_Output.h>
 #include <FL/Fl_PNG_Image.h>
 
+#define CREAM 4294964992
+
 static Fl_Window * partsWindow;
+static Fl_Tabs * tabs;
 
 void createPartsWindow();
 

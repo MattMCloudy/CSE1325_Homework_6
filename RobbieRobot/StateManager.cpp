@@ -42,7 +42,6 @@ void StateManager::createMenuBar() {
 	this->menu = new Fl_Menu_Bar(0, 0, 800, 25);
 
 	menu->add("File/Quit", FL_CTRL + 'q', quitCB);
-	menu->add("Robot/Create Parts", FL_CTRL + 'n', createPartCB);
 }
 
 void StateManager::createTabs() {
@@ -62,7 +61,6 @@ void StateManager::createTabs() {
 
 
 		Fl_Multiline_Output *output = new Fl_Multiline_Output(500, 175, 200, 200);
-		output->value("one\ntwo\n");
 		output->hide();
 
 		Fl_Button* button_catalog = new Fl_Button(30, 175, 100, 30, "Catalog");
@@ -85,9 +83,17 @@ void StateManager::createTabs() {
 		pm_tab->labelfont(FL_COURIER_BOLD);
 		pm_tab->color(CREAM);
 		pm_tab->selection_color(CREAM);
-
+		
 		Fl_Box *pm_box = new Fl_Box(225, 100, 10, 10);
 		pm_box->image(*png);
+		
+		
+		Fl_Button* button_part = new Fl_Button(30, 175, 125, 30, "Create Parts");
+		button_part->color(785150208);
+		button_part->labelcolor(FL_WHITE);
+		button_part->labelfont(FL_COURIER_BOLD);
+		button_part->callback(createPartCB, NULL);
+
 
 	pm_tab->end();
 
