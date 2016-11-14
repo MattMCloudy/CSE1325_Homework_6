@@ -44,4 +44,6 @@ public:
 	void changeState(State state);
 
 	void createMenu() {};
+
+	static void update(void* ptr);
 };

@@ -22,6 +22,12 @@ void catalogCB(Fl_Widget *w, void* ptr) {
 	output->show();
 }
 
+void StateManager::update(void * ptr) {
+	string result = "";
+	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
+	
+}
+
 void StateManager::createMenuBar() {
 	this->menu = new Fl_Menu_Bar(0, 0, 800, 25);
 
