@@ -1,4 +1,6 @@
-#pragma once
+#ifndef STATEMANAGER_H_
+#define STATEMANAGER_H_
+
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Window.H>
@@ -11,7 +13,7 @@
 #include <FL/Fl_Text_Display.h>
 #include <FL/Fl_Multiline_Output.h>
 #include <FL/Fl_PNG_Image.h>
-#include "Factory/RobotFactory.h"
+#include "UI/CreateParts.h"
 
 enum State {
 	WELCOME
@@ -45,3 +47,5 @@ public:
 
 	void createMenu() {};
 };
+
+#endif
