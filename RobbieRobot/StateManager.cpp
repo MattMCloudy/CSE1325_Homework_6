@@ -1,7 +1,5 @@
 #include "StateManager.h"
 
-RobotFactory * factory = new RobotFactory();
-
 #define CREAM 4294964992
 
 void tabCallback(Fl_Widget *w, void* ptr) {
@@ -14,7 +12,7 @@ void quitCB(Fl_Widget * widget, void * ptr) {
 }
 
 void createPartCB(Fl_Widget * widget, void * ptr) {
-
+	createPartsWindow();
 }
 
 void catalogCB(Fl_Widget *w, void* ptr) {
