@@ -4,11 +4,9 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Window.H>
-#include "StateManager.h"
 #include "Factory/RobotFactory.h"
 
-Fl_Window * window;
-StateManager * state;
-RobotFactory * factory;
+static Fl_Window * window;
+static RobotFactory * factory;
 
 #endif

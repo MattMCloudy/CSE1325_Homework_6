@@ -22,7 +22,7 @@ enum State {
 	WELCOME
 };
 
-class StateManager
+class MainViewController
 {
 private:
 	State curState;
@@ -38,7 +38,7 @@ private:
 	void render();
 
 public:
-	StateManager(Fl_Window * window) : curState(WELCOME), win(window) {
+	MainViewController(Fl_Window * window) : curState(WELCOME), win(window) {
 		factory = new RobotFactory();
 		this->createMenuBar();
 		this->createTabs();
@@ -53,6 +53,8 @@ public:
 	void createMenu() {};
 
 	static void update(void* ptr);
+	static void createPartCB(Fl_Widget *w, void* ptr);
+
 };
 
 #endif

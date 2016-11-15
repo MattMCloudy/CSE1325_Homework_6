@@ -1,4 +1,10 @@
 #include "CreateParts.h"
+
+Fl_Window* PartViewController::partsWindow;
+Fl_Tabs* PartViewController::tabs;
+RobotFactory* PartViewController::factory;
+
+
 void colorCallback(Fl_Widget *w, void* ptr) {
 	Fl_Tabs *tabs = (Fl_Tabs*)w;
 	tabs->selection_color( (tabs->value())->color());
@@ -9,7 +15,6 @@ void inputNameCB(Fl_Widget* w, void* ptr){
 	char** arr = (char**) ptr;
 	Fl_Input* input = (Fl_Input*) w;
 	result = (char*) input->value();
-	std::cout << "This is not a\n";
 	arr[0] = result;
 }
 
@@ -21,17 +26,55 @@ void inputCostCB(Fl_Widget* w, void* ptr) {
 	arr[1] = result;
 }
 
-void partCB(Fl_Widget* w, void* ptr) {
+void inputSKUCB(Fl_Widget* w, void* ptr) {
+	char* result;
 	char** arr = (char**) ptr;
-	std::cout << arr[0] << arr[1] << "\n";
+	Fl_Input* input = (Fl_Input*) w;
+	result = (char*) input->value();
+	arr[2] = result;
 }
 
-void createPartsWindow() {
+PartViewController::PartViewController(RobotFactory* fact) {
+		factory = fact;
+}
+
+
+void PartViewController::headPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Head* newbie = factory->createHead(arr[0], arr[1], arr[2]);
+}
+
+void PartViewController::armPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Arm* newbie = factory->createArm(arr[0], arr[1], arr[2]);
+}
+
+void PartViewController::legPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Leg* newbie = factory->createLeg(arr[0], arr[1], arr[2]);
+}
+
+void PartViewController::torsoPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Torso* newbie = factory->createTorso(arr[0], arr[1], arr[2], 1);
+}
+
+void PartViewController::batteryPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Battery* newbie = factory->createBattery(arr[0], arr[1], arr[2]);
+}
+
+void PartViewController::locomotorPartCB(Fl_Widget* w, void* ptr) {
+	char** arr = (char**) ptr;
+	Locomotor* newbie = factory->createLocomotor(arr[0], arr[1], arr[2]);
+}
+
+void PartViewController::createPartsWindow() {
     partsWindow = new Fl_Window(800, 600, "Create Parts");
 	partsWindow->color(785150208);
 	
 	tabs = new Fl_Tabs(10, 30, 780, 500);
-
+	tabs->color(CREAM);
 	tabs->callback(colorCallback, NULL);
 
 	Fl_PNG_Image *png = new Fl_PNG_Image("RobbiesLogo.png");
@@ -45,7 +88,8 @@ void createPartsWindow() {
 		head_box->image(*png);
 
 		char** head_cost_name;
-		head_cost_name = (char**) malloc(2 * sizeof(char*));
+		head_cost_name = (char**) malloc(3 * sizeof(char*));
+
 		Fl_Input* input_head_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Head part?");
 		input_head_name->align(FL_ALIGN_TOP);
 		input_head_name->labelfont(FL_COURIER_BOLD);
@@ -56,11 +100,16 @@ void createPartsWindow() {
 		input_head_cost->labelfont(FL_COURIER_BOLD);
 		input_head_cost->callback(inputCostCB, head_cost_name);
 		
-		Fl_Button* make_head_button = new Fl_Button(30, 325, 100, 50, "Make Head");
+		Fl_Input* input_head_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Head part?");
+		input_head_SKU->align(FL_ALIGN_TOP);
+		input_head_SKU->labelfont(FL_COURIER_BOLD);
+		input_head_SKU->callback(inputSKUCB, head_cost_name);
+
+		Fl_Button* make_head_button = new Fl_Button(30, 400, 100, 25, "Make Head");
 		make_head_button->color(785150208);
 		make_head_button->labelcolor(FL_WHITE);
 		make_head_button->labelfont(FL_COURIER_BOLD);
-		make_head_button->callback(partCB, head_cost_name);
+		make_head_button->callback(headPartCB, head_cost_name);
 
 	head_tab->end();
 
@@ -72,13 +121,28 @@ void createPartsWindow() {
 		Fl_Box *torso_box = new Fl_Box(225, 100, 10, 10);
 		torso_box->image(*png);
 		
+		char** torso_cost_name;
+		torso_cost_name = (char**) malloc(3 * sizeof(char*));
 		Fl_Input* input_torso_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Torso part?");
 		input_torso_name->align(FL_ALIGN_TOP);
 		input_torso_name->labelfont(FL_COURIER_BOLD);
+		input_torso_name->callback(inputNameCB, torso_cost_name);
 
 		Fl_Input* input_torso_cost = new Fl_Input(30, 250, 300, 30, "What is the cost of your Torso part?");
 		input_torso_cost->align(FL_ALIGN_TOP);
 		input_torso_cost->labelfont(FL_COURIER_BOLD);
+		input_torso_cost->callback(inputCostCB, torso_cost_name);
+
+		Fl_Input* input_torso_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Torso part?");
+		input_torso_SKU->align(FL_ALIGN_TOP);
+		input_torso_SKU->labelfont(FL_COURIER_BOLD);
+		input_torso_SKU->callback(inputSKUCB, torso_cost_name);
+		
+		Fl_Button* make_torso_button = new Fl_Button(30, 400, 100, 25, "Make Torso");
+		make_torso_button->color(78515020);
+		make_torso_button->labelcolor(FL_WHITE);
+		make_torso_button->labelfont(FL_COURIER_BOLD);
+		make_torso_button->callback(torsoPartCB, torso_cost_name);
 
 	torso_tab->end();
 	
@@ -91,13 +155,29 @@ void createPartsWindow() {
 		Fl_Box *arm_box = new Fl_Box(225, 100, 10, 10);
 		arm_box->image(*png);
 		
+		char** arm_cost_name;
+		arm_cost_name = (char**) malloc(3 * sizeof(char*));
 		Fl_Input* input_arm_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Arm part?");
 		input_arm_name->align(FL_ALIGN_TOP);
 		input_arm_name->labelfont(FL_COURIER_BOLD);
+		input_arm_name->callback(inputNameCB, arm_cost_name);
+
 
 		Fl_Input* input_arm_cost = new Fl_Input(30, 250, 300, 30, "What is the cost of your Arm part?");
 		input_arm_cost->align(FL_ALIGN_TOP);
 		input_arm_cost->labelfont(FL_COURIER_BOLD);
+		input_arm_cost->callback(inputCostCB, arm_cost_name);
+
+		Fl_Input* input_arm_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Arm part?");
+		input_arm_SKU->align(FL_ALIGN_TOP);
+		input_arm_SKU->labelfont(FL_COURIER_BOLD);
+		input_arm_SKU->callback(inputSKUCB, arm_cost_name);
+
+		Fl_Button* make_arm_button = new Fl_Button(30, 400, 100, 25, "Make Arm");
+		make_arm_button->color(78515020);
+		make_arm_button->labelcolor(FL_WHITE);
+		make_arm_button->labelfont(FL_COURIER_BOLD);
+		make_arm_button->callback(armPartCB, arm_cost_name);
 
 	arm_tab->end();
 	
@@ -110,13 +190,28 @@ void createPartsWindow() {
 		Fl_Box *leg_box = new Fl_Box(225, 100, 10, 10);
 		leg_box->image(*png);
 		
+		char** leg_cost_name;
+		leg_cost_name = (char**) malloc(3 * sizeof(char*));
 		Fl_Input* input_leg_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Leg part?");
 		input_leg_name->align(FL_ALIGN_TOP);
 		input_leg_name->labelfont(FL_COURIER_BOLD);
+		input_leg_name->callback(inputNameCB, leg_cost_name);
 
 		Fl_Input* input_leg_cost = new Fl_Input(30, 250, 300, 30, "What is the cost of your Leg part?");
 		input_leg_cost->align(FL_ALIGN_TOP);
 		input_leg_cost->labelfont(FL_COURIER_BOLD);
+		input_leg_cost->callback(inputCostCB, leg_cost_name);
+
+		Fl_Input* input_leg_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Leg part?");
+		input_leg_SKU->align(FL_ALIGN_TOP);
+		input_leg_SKU->labelfont(FL_COURIER_BOLD);
+		input_leg_SKU->callback(inputSKUCB, leg_cost_name);
+
+		Fl_Button* make_leg_button = new Fl_Button(30, 400, 100, 25, "Make Leg");
+		make_leg_button->color(78515020);
+		make_leg_button->labelcolor(FL_WHITE);
+		make_leg_button->labelfont(FL_COURIER_BOLD);
+		make_leg_button->callback(legPartCB, leg_cost_name);
 
 	leg_tab->end();
 	
@@ -129,13 +224,28 @@ void createPartsWindow() {
 		Fl_Box *battery_box = new Fl_Box(225, 100, 10, 10);
 		battery_box->image(*png);
 		
+		char** battery_cost_name;
+		battery_cost_name = (char**) malloc(3 * sizeof(char*));
 		Fl_Input* input_battery_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Battery part?");
 		input_battery_name->align(FL_ALIGN_TOP);
 		input_battery_name->labelfont(FL_COURIER_BOLD);
+		input_battery_name->callback(inputNameCB, battery_cost_name);
 
 		Fl_Input* input_battery_cost = new Fl_Input(30, 250, 300, 30, "What is the cost of your Battery part?");
 		input_battery_cost->align(FL_ALIGN_TOP);
 		input_battery_cost->labelfont(FL_COURIER_BOLD);
+		input_battery_cost->callback(inputCostCB, battery_cost_name);
+
+		Fl_Input* input_battery_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Battery part?");
+		input_battery_SKU->align(FL_ALIGN_TOP);
+		input_battery_SKU->labelfont(FL_COURIER_BOLD);
+		input_battery_SKU->callback(inputSKUCB, battery_cost_name);
+
+		Fl_Button* make_battery_button = new Fl_Button(30, 400, 100, 25, "Make Battery");
+		make_battery_button->color(78515020);
+		make_battery_button->labelcolor(FL_WHITE);
+		make_battery_button->labelfont(FL_COURIER_BOLD);
+		make_battery_button->callback(batteryPartCB, battery_cost_name);
 
 	battery_tab->end();
 
@@ -148,13 +258,28 @@ void createPartsWindow() {
 		Fl_Box *loco_box = new Fl_Box(225, 100, 10, 10);
 		loco_box->image(*png);
 		
+		char** loco_cost_name;
+		loco_cost_name = (char**) malloc(3 * sizeof(char*));
 		Fl_Input* input_loco_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Locomotor part?");
 		input_loco_name->align(FL_ALIGN_TOP);
 		input_loco_name->labelfont(FL_COURIER_BOLD);
+		input_loco_name->callback(inputNameCB, loco_cost_name);
 
 		Fl_Input* input_loco_cost = new Fl_Input(30, 250, 300, 30, "What is the cost of your Locomotor part?");
 		input_loco_cost->align(FL_ALIGN_TOP);
 		input_loco_cost->labelfont(FL_COURIER_BOLD);
+		input_loco_cost->callback(inputCostCB, loco_cost_name);
+
+		Fl_Input* input_loco_SKU = new Fl_Input(30, 325, 300, 30, "What is the SKU of your Locomotor part?");
+		input_loco_SKU->align(FL_ALIGN_TOP);
+		input_loco_SKU->labelfont(FL_COURIER_BOLD);
+		input_loco_SKU->callback(inputSKUCB, loco_cost_name);
+
+		Fl_Button* make_loco_button = new Fl_Button(30, 400, 100, 25, "Make Locomotor");
+		make_loco_button->color(78515020);
+		make_loco_button->labelcolor(FL_WHITE);
+		make_loco_button->labelfont(FL_COURIER_BOLD);
+		make_loco_button->callback(locomotorPartCB, loco_cost_name);
 
 	loco_tab->end();
 	tabs->end();

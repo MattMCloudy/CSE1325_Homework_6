@@ -50,124 +50,103 @@ void RobotFactory::del(Robot * robot) {
     models.erase(std::remove(models.begin(), models.end(), robot), models.end());
 }
 
-Head* RobotFactory::createHead() {
-	string name;
-	string price_s;
-	string SKU_s;
+Head* RobotFactory::createHead(string name, string price_s, string SKU_s) {
 	double price;
 	int SKU;
-	cout << "\nWhat is the name of your new Head part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Head part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Head part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "invalid SKU or price\n";
+			return NULL;
+	}
+
 	Head* newbie = new Head(price, SKU, name);
 	insert(newbie);
 	return newbie;
 }
 
-Torso* RobotFactory::createTorso() {
-	string name;
-	string price_s;
-	string SKU_s;
-	string bat_s;
+Torso* RobotFactory::createTorso(string name, string price_s, string SKU_s, int batSlots) {
 	double price;
 	int SKU;
-	int slots;
-	cout << "\nWhat is the name of your new Torso part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Torso part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Torso part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "Invalid price or SKU\n";
+			return NULL;
+	}
+
 	Torso* newbie = new Torso(price, SKU, name);
-	cout << "\nHow many battery slots do you want in Torso? (Maximum of 3): ";
-	getline(cin, bat_s);
-	slots = stoi(bat_s);
-	newbie->setBatterySlots(slots);
+	newbie->setBatterySlots(batSlots);
 	insert(newbie);
 	return newbie;
 }
 
-Battery* RobotFactory::createBattery() {
-	string name;
-	string price_s;
-	string SKU_s;
+Battery* RobotFactory::createBattery(string name, string price_s, string SKU_s) {
 	double price;
 	int SKU;
-	cout << "\nWhat is the name of your new Battery part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Battery part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Battery part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "invalid SKU or price\n";
+			return NULL;
+	}
+
 	Battery* newbie = new Battery(price, SKU, name);
 	insert(newbie);
-	cout << "\nSUP\n";
 	return newbie;
+
 }
 
-Leg* RobotFactory::createLeg() {
-	string name;
-	string price_s;
-	string SKU_s;
+Leg* RobotFactory::createLeg(string name, string price_s, string SKU_s) {
 	double price;
 	int SKU;
-	cout << "\nWhat is the name of your new Leg part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Leg part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Leg part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "invalid SKU or price\n";
+			return NULL;
+	}
+
 	Leg* newbie = new Leg(price, SKU, name);
 	insert(newbie);
 	return newbie;
 }
 
-Arm* RobotFactory::createArm() {
-	string name;
-	string price_s;
-	string SKU_s;
+Arm* RobotFactory::createArm(string name, string price_s, string SKU_s) {
 	double price;
 	int SKU;
-	cout << "\nWhat is the name of your new Arm part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Arm part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Arm part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "invalid SKU or price\n";
+			return NULL;
+	}
+
 	Arm* newbie = new Arm(price, SKU, name);
 	insert(newbie);
 	return newbie;
 }
 
-Locomotor* RobotFactory::createLocomotor() {
-	string name;
-	string price_s;
-	string SKU_s;
+Locomotor* RobotFactory::createLocomotor(string name, string price_s, string SKU_s) {
 	double price;
 	int SKU;
-	cout << "\nWhat is the name of your new Locomotor part?: ";
-	getline(cin, name);
-	cout << "\nWhat is the cost of your new Locomotor part?: ";
-	getline(cin, price_s);
-	price = stod(price_s);
-	cout << "\nWhat is the SKU of your new Locomotor part?: ";
-	getline(cin, SKU_s);
-	SKU = stoi(SKU_s);
+	try {
+			price = stod(price_s);
+			SKU = stod(SKU_s);
+	} catch(const exception& e) {
+			cerr << "invalid SKU or price\n";
+			return NULL;
+	}
+
 	Locomotor* newbie = new Locomotor(price, SKU, name);
 	insert(newbie);
 	return newbie;
+
 }
 RobotFactory::RobotFactory() {}

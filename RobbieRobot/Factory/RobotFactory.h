@@ -56,12 +56,12 @@ public:
     const vector<Robot *> &getModels() const { return models; }
 	const vector<Robot *> &getRobots() const { return robots; }
 	
-	Head* createHead();
-	Torso* createTorso();
-	Battery* createBattery();
-	Leg* createLeg();
-	Arm* createArm();
-	Locomotor* createLocomotor();
+	Head* createHead(string name, string price_s, string SKU_s);
+	Torso* createTorso(string name, string price_s, string SKU_s, int batSlots);
+	Battery* createBattery(string name, string price_s, string SKU_s);
+	Leg* createLeg(string name, string price_s, string SKU_s);
+	Arm* createArm(string name, string price_s, string SKU_s);
+	Locomotor* createLocomotor(string name, string price_s, string SKU_s);
 
     Robot * createRobot(string name, Head* head, Torso* torso, Battery* battery1, Battery* battery2, Battery* battery3, Leg* leftLeg, Leg* rightLeg, Arm* leftArm, Arm* rightArm, Locomotor* locomotor);
 	void createModel(string name, Head* head, Torso* torso, Battery* battery1, Battery* battery2, Battery* battery3, Leg* leftLeg, Leg* rightLeg, Arm* leftArm, Arm* rightArm, Locomotor* locomotor);

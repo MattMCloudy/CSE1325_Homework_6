@@ -1,8 +1,7 @@
-#include "globals.h"
+#include "MainViewController.h"
 
 int main() {
-	factory = new RobotFactory();
-	window = new Fl_Window(800, 600, "Robbie Robot Shop");
+	Fl_Window* window = new Fl_Window(800, 600, "Robbie Robot Shop");
 	window->color(785150208);
-	state = new StateManager(window);
+	MainViewController* controller = new MainViewController(window);
 }

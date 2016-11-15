@@ -1,8 +1,8 @@
-#include "StateManager.h"
+#include "MainViewController.h"
 
 #define CREAM 4294964992
 
-RobotFactory* StateManager::factory;
+RobotFactory* MainViewController::factory;
 
 void tabCallback(Fl_Widget *w, void* ptr) {
 	Fl_Tabs *tabs = (Fl_Tabs*)w;
@@ -13,17 +13,18 @@ void quitCB(Fl_Widget * widget, void * ptr) {
 	exit(0);
 }
 
-void createPartCB(Fl_Widget * widget, void * ptr) {
-	createPartsWindow();
+void MainViewController::createPartCB(Fl_Widget * widget, void * ptr) {
+	PartViewController* partView = new PartViewController(factory);
+	partView->createPartsWindow();
 }
 
 void catalogCB(Fl_Widget *w, void* ptr) {
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
-	StateManager::update(ptr);
+	MainViewController::update(ptr);
 	output->show();
 }
 
-void StateManager::update(void * ptr) {
+void MainViewController::update(void * ptr) {
 	std::string result = "";
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
 	vector<Robot *> robots = factory->getRobots();
@@ -38,13 +39,13 @@ void StateManager::update(void * ptr) {
 	output->value(result.c_str());	
 }
 
-void StateManager::createMenuBar() {
+void MainViewController::createMenuBar() {
 	this->menu = new Fl_Menu_Bar(0, 0, 800, 25);
 
 	menu->add("File/Quit", FL_CTRL + 'q', quitCB);
 }
 
-void StateManager::createTabs() {
+void MainViewController::createTabs() {
 
 	this->tabs = new Fl_Tabs(10, 30, 780, 500);
 	tabs->callback(tabCallback, NULL);
@@ -128,18 +129,18 @@ void StateManager::createTabs() {
 	tabs->end();
 }
 
-void StateManager::render() {
+void MainViewController::render() {
 	switch (this->curState) {
 	case WELCOME:
 		this->createWelcome();
 	}
 }
 
-void StateManager::changeState(State state) {
+void MainViewController::changeState(State state) {
 	this->curState = state;
 	this->render();
 }
 
-void StateManager::createWelcome() {
+void MainViewController::createWelcome() {
 
 }
