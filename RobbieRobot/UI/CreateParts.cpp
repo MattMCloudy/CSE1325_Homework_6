@@ -4,6 +4,10 @@ Fl_Window* PartViewController::partsWindow;
 Fl_Tabs* PartViewController::tabs;
 RobotFactory* PartViewController::factory;
 
+void responseCB(Fl_Widget* w, void* ptr) {
+	Fl_Multiline_Output* out = (Fl_Multiline_Output*) ptr;
+	out->show();
+}
 
 void colorCallback(Fl_Widget *w, void* ptr) {
 	Fl_Tabs *tabs = (Fl_Tabs*)w;
@@ -34,6 +38,14 @@ void inputSKUCB(Fl_Widget* w, void* ptr) {
 	arr[2] = result;
 }
 
+void inputSlotsCB(Fl_Widget* w, void* ptr) {
+	char* result;
+	char** arr = (char**) ptr;
+	Fl_Input* input = (Fl_Input*) w;
+	result = (char*) input->value();
+	arr[3] = result;
+}
+
 PartViewController::PartViewController(RobotFactory* fact) {
 		factory = fact;
 }
@@ -42,6 +54,7 @@ PartViewController::PartViewController(RobotFactory* fact) {
 void PartViewController::headPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
 	Head* newbie = factory->createHead(arr[0], arr[1], arr[2]);
+	Fl_Window* disp = new Fl_Window(100, 100, 100, 100, "Head Part Created");
 }
 
 void PartViewController::armPartCB(Fl_Widget* w, void* ptr) {
@@ -56,7 +69,7 @@ void PartViewController::legPartCB(Fl_Widget* w, void* ptr) {
 
 void PartViewController::torsoPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
-	Torso* newbie = factory->createTorso(arr[0], arr[1], arr[2], 1);
+	Torso* newbie = factory->createTorso(arr[0], arr[1], arr[2], atoi(arr[3]));
 }
 
 void PartViewController::batteryPartCB(Fl_Widget* w, void* ptr) {
@@ -104,12 +117,17 @@ void PartViewController::createPartsWindow() {
 		input_head_SKU->align(FL_ALIGN_TOP);
 		input_head_SKU->labelfont(FL_COURIER_BOLD);
 		input_head_SKU->callback(inputSKUCB, head_cost_name);
-
+			
+		Fl_Multiline_Output* head_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		head_out->value("Part has been created!\n");
+		head_out->hide();
+		
 		Fl_Button* make_head_button = new Fl_Button(30, 400, 100, 25, "Make Head");
 		make_head_button->color(785150208);
 		make_head_button->labelcolor(FL_WHITE);
 		make_head_button->labelfont(FL_COURIER_BOLD);
 		make_head_button->callback(headPartCB, head_cost_name);
+		make_head_button->callback(responseCB, head_out);
 
 	head_tab->end();
 
@@ -122,7 +140,7 @@ void PartViewController::createPartsWindow() {
 		torso_box->image(*png);
 		
 		char** torso_cost_name;
-		torso_cost_name = (char**) malloc(3 * sizeof(char*));
+		torso_cost_name = (char**) malloc(4 * sizeof(char*));
 		Fl_Input* input_torso_name = new Fl_Input(30, 175, 300, 30, "What is the name of your Torso part?");
 		input_torso_name->align(FL_ALIGN_TOP);
 		input_torso_name->labelfont(FL_COURIER_BOLD);
@@ -138,11 +156,21 @@ void PartViewController::createPartsWindow() {
 		input_torso_SKU->labelfont(FL_COURIER_BOLD);
 		input_torso_SKU->callback(inputSKUCB, torso_cost_name);
 		
-		Fl_Button* make_torso_button = new Fl_Button(30, 400, 100, 25, "Make Torso");
+		Fl_Input* input_torso_slots = new Fl_Input(305, 400, 25, 30, "Number of battery slots (0-3):");
+		input_torso_slots->align(FL_ALIGN_LEFT);
+		input_torso_slots->labelfont(FL_COURIER_BOLD);
+		input_torso_slots->callback(inputSlotsCB, torso_cost_name);
+
+		Fl_Multiline_Output* torso_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		torso_out->value("Part has been created!\n");
+		torso_out->hide();
+
+		Fl_Button* make_torso_button = new Fl_Button(30, 475, 100, 25, "Make Torso");
 		make_torso_button->color(78515020);
 		make_torso_button->labelcolor(FL_WHITE);
 		make_torso_button->labelfont(FL_COURIER_BOLD);
 		make_torso_button->callback(torsoPartCB, torso_cost_name);
+		make_torso_button->callback(responseCB, torso_out);
 
 	torso_tab->end();
 	
@@ -173,11 +201,16 @@ void PartViewController::createPartsWindow() {
 		input_arm_SKU->labelfont(FL_COURIER_BOLD);
 		input_arm_SKU->callback(inputSKUCB, arm_cost_name);
 
+		Fl_Multiline_Output* arm_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		arm_out->value("Part has been created!\n");
+		arm_out->hide();
+
 		Fl_Button* make_arm_button = new Fl_Button(30, 400, 100, 25, "Make Arm");
 		make_arm_button->color(78515020);
 		make_arm_button->labelcolor(FL_WHITE);
 		make_arm_button->labelfont(FL_COURIER_BOLD);
 		make_arm_button->callback(armPartCB, arm_cost_name);
+		make_arm_button->callback(responseCB, arm_out);
 
 	arm_tab->end();
 	
@@ -206,13 +239,18 @@ void PartViewController::createPartsWindow() {
 		input_leg_SKU->align(FL_ALIGN_TOP);
 		input_leg_SKU->labelfont(FL_COURIER_BOLD);
 		input_leg_SKU->callback(inputSKUCB, leg_cost_name);
+		
+		Fl_Multiline_Output* leg_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		leg_out->value("Part has been created!\n");
+		leg_out->hide();
 
 		Fl_Button* make_leg_button = new Fl_Button(30, 400, 100, 25, "Make Leg");
 		make_leg_button->color(78515020);
 		make_leg_button->labelcolor(FL_WHITE);
 		make_leg_button->labelfont(FL_COURIER_BOLD);
 		make_leg_button->callback(legPartCB, leg_cost_name);
-
+		make_leg_button->callback(responseCB, leg_out);
+	
 	leg_tab->end();
 	
 	
@@ -240,12 +278,17 @@ void PartViewController::createPartsWindow() {
 		input_battery_SKU->align(FL_ALIGN_TOP);
 		input_battery_SKU->labelfont(FL_COURIER_BOLD);
 		input_battery_SKU->callback(inputSKUCB, battery_cost_name);
+		
+		Fl_Multiline_Output* battery_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		battery_out->value("Part has been created!\n");
+		battery_out->hide();
 
-		Fl_Button* make_battery_button = new Fl_Button(30, 400, 100, 25, "Make Battery");
+		Fl_Button* make_battery_button = new Fl_Button(30, 400, 150, 25, "Make Battery");
 		make_battery_button->color(78515020);
 		make_battery_button->labelcolor(FL_WHITE);
 		make_battery_button->labelfont(FL_COURIER_BOLD);
 		make_battery_button->callback(batteryPartCB, battery_cost_name);
+		make_battery_button->callback(responseCB, battery_out);
 
 	battery_tab->end();
 
@@ -274,12 +317,18 @@ void PartViewController::createPartsWindow() {
 		input_loco_SKU->align(FL_ALIGN_TOP);
 		input_loco_SKU->labelfont(FL_COURIER_BOLD);
 		input_loco_SKU->callback(inputSKUCB, loco_cost_name);
+		
 
-		Fl_Button* make_loco_button = new Fl_Button(30, 400, 100, 25, "Make Locomotor");
+		Fl_Multiline_Output* loco_out = new Fl_Multiline_Output(475, 175, 150, 30);
+		loco_out->value("Part has been created!\n");
+		loco_out->hide();
+
+		Fl_Button* make_loco_button = new Fl_Button(30, 400, 150, 25, "Make Locomotor");
 		make_loco_button->color(78515020);
 		make_loco_button->labelcolor(FL_WHITE);
 		make_loco_button->labelfont(FL_COURIER_BOLD);
 		make_loco_button->callback(locomotorPartCB, loco_cost_name);
+		make_loco_button->callback(responseCB, loco_out);
 
 	loco_tab->end();
 	tabs->end();

@@ -13,13 +13,15 @@ void RobotFactory::createModel(string name, Head* head, Torso* torso, Battery* b
 }
 
 Robot * RobotFactory::createRobotFromModel(Robot * robot) {
-	robots.push_back(new Robot(*robot));
-    return new Robot(*robot);
+	Robot* newbie = new Robot(*robot);
+	robots.push_back(newbie);
+    return newbie;
 }
 
 Robot * RobotFactory::createRobotFromModel(int i) {
-	robots.push_back(new Robot(*models[i]));
-    return new Robot(*models[i]);
+	Robot* newbie = new Robot(*models[i]);
+	robots.push_back(newbie);
+    return newbie;
 }
 
 void RobotFactory::del(Head * head) {
