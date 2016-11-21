@@ -82,7 +82,9 @@ Torso* RobotFactory::createTorso(string name, string price_s, string SKU_s, int 
 
 	Torso* newbie = new Torso(price, SKU, name);
 	newbie->setBatterySlots(batSlots);
+	cout << "It inserts here\n";
 	insert(newbie);
+	cout << newbie->getName() << "\n";
 	return newbie;
 }
 

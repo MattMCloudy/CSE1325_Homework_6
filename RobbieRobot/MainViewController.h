@@ -15,6 +15,7 @@
 #include <FL/Fl_Multiline_Output.h>
 #include <FL/Fl_PNG_Image.h>
 #include "UI/CreateParts.h"
+#include "UI/ModelViewController.h"
 #include "Factory/RobotFactory.h"
 #include "Robot/Robot.h"
 
@@ -54,7 +55,7 @@ public:
 
 	static void update(void* ptr);
 	static void createPartCB(Fl_Widget *w, void* ptr);
-
+	static void createModelCB(Fl_Widget* w, void* ptr);
 };
 
 #endif

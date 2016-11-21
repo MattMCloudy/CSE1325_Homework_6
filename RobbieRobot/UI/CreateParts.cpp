@@ -4,10 +4,6 @@ Fl_Window* PartViewController::partsWindow;
 Fl_Tabs* PartViewController::tabs;
 RobotFactory* PartViewController::factory;
 
-void responseCB(Fl_Widget* w, void* ptr) {
-	Fl_Multiline_Output* out = (Fl_Multiline_Output*) ptr;
-	out->show();
-}
 
 void colorCallback(Fl_Widget *w, void* ptr) {
 	Fl_Tabs *tabs = (Fl_Tabs*)w;
@@ -88,6 +84,7 @@ void PartViewController::createPartsWindow() {
 	
 	tabs = new Fl_Tabs(10, 30, 780, 500);
 	tabs->color(CREAM);
+	tabs->selection_color(CREAM);
 	tabs->callback(colorCallback, NULL);
 
 	Fl_PNG_Image *png = new Fl_PNG_Image("RobbiesLogo.png");
@@ -127,9 +124,8 @@ void PartViewController::createPartsWindow() {
 		make_head_button->labelcolor(FL_WHITE);
 		make_head_button->labelfont(FL_COURIER_BOLD);
 		make_head_button->callback(headPartCB, head_cost_name);
-		make_head_button->callback(responseCB, head_out);
-
-	head_tab->end();
+	
+		head_tab->end();
 
 	Fl_Group *torso_tab = new Fl_Group(10,55,780,450, "Torso");
 		torso_tab->labelfont(FL_COURIER_BOLD);
@@ -170,7 +166,6 @@ void PartViewController::createPartsWindow() {
 		make_torso_button->labelcolor(FL_WHITE);
 		make_torso_button->labelfont(FL_COURIER_BOLD);
 		make_torso_button->callback(torsoPartCB, torso_cost_name);
-		make_torso_button->callback(responseCB, torso_out);
 
 	torso_tab->end();
 	
@@ -210,7 +205,6 @@ void PartViewController::createPartsWindow() {
 		make_arm_button->labelcolor(FL_WHITE);
 		make_arm_button->labelfont(FL_COURIER_BOLD);
 		make_arm_button->callback(armPartCB, arm_cost_name);
-		make_arm_button->callback(responseCB, arm_out);
 
 	arm_tab->end();
 	
@@ -249,7 +243,6 @@ void PartViewController::createPartsWindow() {
 		make_leg_button->labelcolor(FL_WHITE);
 		make_leg_button->labelfont(FL_COURIER_BOLD);
 		make_leg_button->callback(legPartCB, leg_cost_name);
-		make_leg_button->callback(responseCB, leg_out);
 	
 	leg_tab->end();
 	
@@ -288,7 +281,6 @@ void PartViewController::createPartsWindow() {
 		make_battery_button->labelcolor(FL_WHITE);
 		make_battery_button->labelfont(FL_COURIER_BOLD);
 		make_battery_button->callback(batteryPartCB, battery_cost_name);
-		make_battery_button->callback(responseCB, battery_out);
 
 	battery_tab->end();
 
@@ -328,7 +320,6 @@ void PartViewController::createPartsWindow() {
 		make_loco_button->labelcolor(FL_WHITE);
 		make_loco_button->labelfont(FL_COURIER_BOLD);
 		make_loco_button->callback(locomotorPartCB, loco_cost_name);
-		make_loco_button->callback(responseCB, loco_out);
 
 	loco_tab->end();
 	tabs->end();

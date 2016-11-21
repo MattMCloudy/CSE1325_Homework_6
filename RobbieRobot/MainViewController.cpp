@@ -18,6 +18,11 @@ void MainViewController::createPartCB(Fl_Widget * widget, void * ptr) {
 	partView->createPartsWindow();
 }
 
+void MainViewController::createModelCB(Fl_Widget* w, void* ptr) {
+	ModelViewController* modelView = new ModelViewController(factory);
+	modelView->createModelWindow();
+}
+
 void catalogCB(Fl_Widget *w, void* ptr) {
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
 	MainViewController::update(ptr);
@@ -95,7 +100,12 @@ void MainViewController::createTabs() {
 		button_part->labelfont(FL_COURIER_BOLD);
 		button_part->callback(createPartCB, NULL);
 
-
+		
+		Fl_Button* button_model = new Fl_Button(30, 250, 125, 30, "Create Model");
+		button_model->color(785150208);
+		button_model->labelcolor(FL_WHITE);
+		button_model->labelfont(FL_COURIER_BOLD);
+		button_model->callback(createModelCB, NULL);
 	pm_tab->end();
 
 	Fl_Group *sa_tab = new Fl_Group(10,55,780,450, "Sales Associate");
