@@ -56,6 +56,10 @@ public:
 	static void update(void* ptr);
 	static void createPartCB(Fl_Widget *w, void* ptr);
 	static void createModelCB(Fl_Widget* w, void* ptr);
+	static void showModelsCB(Fl_Widget* w, void* ptr);
+	static void makeRobotCB(Fl_Widget* w, void* ptr);
+	static void modelInputCB(Fl_Widget* w, void* ptr);
+	static void robotNameCB(Fl_Widget* w, void* ptr);
 };
 
 #endif

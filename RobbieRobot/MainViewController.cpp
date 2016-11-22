@@ -29,6 +29,41 @@ void catalogCB(Fl_Widget *w, void* ptr) {
 	output->show();
 }
 
+void MainViewController::modelInputCB(Fl_Widget* w, void* ptr) {
+	char** values = (char**) ptr;
+	Fl_Input* input = (Fl_Input*) w;
+	values[0] = (char*) input->value();
+}
+
+void MainViewController::robotNameCB(Fl_Widget* w, void* ptr) {
+	char** values = (char**) ptr;
+	Fl_Input* input = (Fl_Input*) w;
+	values[1] = (char*) input->value();
+}
+
+void MainViewController::showModelsCB(Fl_Widget* w, void* ptr) {
+	string result = "";
+	vector<Robot*> models = factory->getModels();
+	Fl_Multiline_Output* out = (Fl_Multiline_Output*) ptr;
+	for (int i = 0; i < models.size(); i++) {
+		result = result + models[i]->getName() + "\n";
+	}
+	out->value(result.c_str());
+	out->show();
+}
+
+void MainViewController::makeRobotCB(Fl_Widget* w, void* ptr) {
+	char** values = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	vector<Robot*> models = factory->getModels();
+	for (int i = 0; i < models.size(); i++) {
+		if (strcmp(values[0], models[i]->getName().c_str()) == 0){
+			Robot* temp = factory->createRobotFromModel(values[1], models[i]);
+			button->color(FL_BLUE);
+		}
+	}
+}
+
 void MainViewController::update(void * ptr) {
 	std::string result = "";
 	Fl_Multiline_Output *output = (Fl_Multiline_Output*) ptr;
@@ -93,7 +128,7 @@ void MainViewController::createTabs() {
 		Fl_Box *pm_box = new Fl_Box(225, 100, 10, 10);
 		pm_box->image(*png);
 		
-		
+		char** robot_search_name = (char**) malloc(2 * sizeof(char*));
 		Fl_Button* button_part = new Fl_Button(30, 175, 125, 30, "Create Parts");
 		button_part->color(785150208);
 		button_part->labelcolor(FL_WHITE);
@@ -106,6 +141,31 @@ void MainViewController::createTabs() {
 		button_model->labelcolor(FL_WHITE);
 		button_model->labelfont(FL_COURIER_BOLD);
 		button_model->callback(createModelCB, NULL);
+
+		Fl_Multiline_Output* view_models = new Fl_Multiline_Output(500, 175, 200, 200, "Models");
+		view_models->align(FL_ALIGN_TOP);
+		view_models->hide();
+
+		Fl_Button* button_show= new Fl_Button(250, 175, 125, 30, "Show Models");
+		button_show->color(785150208);
+		button_show->labelcolor(FL_WHITE);
+		button_show->labelfont(FL_COURIER_BOLD);
+		button_show->callback(showModelsCB, view_models);
+
+		Fl_Input* model_input = new Fl_Input(250, 325, 150, 30, "What model robot will you make?");
+		model_input->align(FL_ALIGN_LEFT);
+		model_input->callback(modelInputCB, robot_search_name);
+
+		Fl_Input* robot_name = new Fl_Input(250, 400, 150, 30, "What will be the name of your robot?");
+		robot_name->align(FL_ALIGN_LEFT);
+		robot_name->callback(robotNameCB, robot_search_name);
+
+		Fl_Button* button_robot = new Fl_Button(250, 250, 125, 30, "Make New Robot");
+		button_robot->color(785150208);
+		button_robot->labelcolor(FL_WHITE);
+		button_robot->labelfont(FL_COURIER_BOLD);
+		button_robot->callback(makeRobotCB, robot_search_name);
+
 	pm_tab->end();
 
 	Fl_Group *sa_tab = new Fl_Group(10,55,780,450, "Sales Associate");

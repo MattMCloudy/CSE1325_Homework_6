@@ -49,32 +49,44 @@ PartViewController::PartViewController(RobotFactory* fact) {
 
 void PartViewController::headPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Head* newbie = factory->createHead(arr[0], arr[1], arr[2]);
 	Fl_Window* disp = new Fl_Window(100, 100, 100, 100, "Head Part Created");
 }
 
 void PartViewController::armPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Arm* newbie = factory->createArm(arr[0], arr[1], arr[2]);
 }
 
 void PartViewController::legPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Leg* newbie = factory->createLeg(arr[0], arr[1], arr[2]);
 }
 
 void PartViewController::torsoPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Torso* newbie = factory->createTorso(arr[0], arr[1], arr[2], atoi(arr[3]));
 }
 
 void PartViewController::batteryPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Battery* newbie = factory->createBattery(arr[0], arr[1], arr[2]);
 }
 
 void PartViewController::locomotorPartCB(Fl_Widget* w, void* ptr) {
 	char** arr = (char**) ptr;
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 	Locomotor* newbie = factory->createLocomotor(arr[0], arr[1], arr[2]);
 }
 

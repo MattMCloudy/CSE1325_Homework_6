@@ -65,8 +65,8 @@ public:
 
     Robot * createRobot(string name, Head* head, Torso* torso, Battery* battery1, Battery* battery2, Battery* battery3, Leg* leftLeg, Leg* rightLeg, Arm* leftArm, Arm* rightArm, Locomotor* locomotor);
 	void createModel(string name, Head* head, Torso* torso, Battery* battery1, Battery* battery2, Battery* battery3, Leg* leftLeg, Leg* rightLeg, Arm* leftArm, Arm* rightArm, Locomotor* locomotor);
-    Robot * createRobotFromModel(Robot * robot);
-    Robot * createRobotFromModel(int i);
+    Robot * createRobotFromModel(string name, Robot * robot);
+    Robot * createRobotFromModel(string name, int i);
 };
 
 

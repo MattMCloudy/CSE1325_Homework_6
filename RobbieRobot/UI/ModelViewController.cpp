@@ -214,12 +214,16 @@ void ModelViewController::locoInputCB(Fl_Widget* w, void* ptr) {
 
 void ModelViewController::batteryInputCB(Fl_Widget* w, void* ptr) {
 	Fl_Input* input = (Fl_Input*) w;
+	cout << "What\n";
 	vector<Battery*> batts = factory->getBatteryParts();
 	for (int i = 0; i < batts.size(); i++) {
 		if (strcmp(input->value(), batts[i]->getName().c_str()) == 0){
+			cout << "Where is the prob?\n";
 			batt[bat_count] = batts[i];
-			if (torso->getBatterySlots() == bat_count-1)
+			cout << "you might have made it once\n";
+			if (torso->getBatterySlots() == bat_count+1)
 				input->hide();
+			bat_count++;
 		}
 	}
 
@@ -257,6 +261,7 @@ void ModelViewController::createModelWindow() {
 		head_out->hide();
 		
 		Fl_Button* head_button = new Fl_Button(30, 300, 100, 25, "Show Heads");
+		head_button->color(785150208);
 		head_button->callback(headButtonCB, head_out);
 
 		Fl_Input* head_in = new Fl_Input(30, 400, 100, 25, "Enter a Head");
@@ -270,6 +275,7 @@ void ModelViewController::createModelWindow() {
 		torso_out->hide();
 		
 		Fl_Button* torso_button = new Fl_Button(155, 300, 100, 25, "Show Torso");
+		torso_button->color(785150208);
 		torso_button->callback(torsoButtonCB, torso_out);
 
 		Fl_Input* torso_in = new Fl_Input(155, 400, 100, 25, "Enter a Torso");
@@ -283,6 +289,7 @@ void ModelViewController::createModelWindow() {
 		leg_out->hide();
 
 		Fl_Button* leg_button = new Fl_Button(280, 300, 100, 25, "Show Legs");
+		leg_button->color(785150208);
 		leg_button->callback(legButtonCB, leg_out);
 
 		Fl_Input* leg_in = new Fl_Input(280, 400, 100, 25, "Enter a Leg");
@@ -296,6 +303,7 @@ void ModelViewController::createModelWindow() {
 		arm_out->hide();
 
 		Fl_Button* arm_button = new Fl_Button(405, 300, 100, 25, "Show Arms");
+		arm_button->color(785150208);
 		arm_button->callback(armButtonCB, arm_out);
 
 		Fl_Input* arm_in = new Fl_Input(405, 400, 100, 25, "Enter an Arm");
@@ -309,8 +317,9 @@ void ModelViewController::createModelWindow() {
 		loco_out->hide();
 
 		Fl_Button* loco_button = new Fl_Button(525, 300, 117, 25, "Show Locomotors");
+		loco_button->color(785150208);
 		loco_button->callback(locoButtonCB, loco_out);
-		
+
 		Fl_Input* loco_in = new Fl_Input(530, 400, 100, 25, "Enter a Locomotor");
 		loco_in->align(FL_ALIGN_TOP);
 		loco_in->callback(locoInputCB, NULL);
@@ -322,17 +331,19 @@ void ModelViewController::createModelWindow() {
 		bat_out->hide();
 
 		Fl_Button* bat_button = new Fl_Button(650, 300, 117, 25, "Show Batteries");
+		bat_button->color(785150208);
 		bat_button->callback(batteryButtonCB,bat_out);
 
 		Fl_Input* bat_in = new Fl_Input(655, 400, 100, 25, "Enter a Battery");
 		bat_in->align(FL_ALIGN_TOP);
-		bat_in->callback(batteryButtonCB, NULL);
+		bat_in->callback(batteryInputCB, NULL);
 
 		/***/
 
 		Fl_Button* make_model = new Fl_Button(300, 450, 200, 50, "Make Model");
+		make_model->color(785150208);
 		make_model->callback(makeModelCB, NULL);
-
+		
 	model_maker->end();
 	
 	tab->end();
