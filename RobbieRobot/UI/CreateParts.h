@@ -45,4 +45,6 @@ class PartViewController {
 			static void locomotorPartCB(Fl_Widget* w, void* ptr);
 };
 
+	Fl_Button* button = (Fl_Button*) w;
+	button->color(FL_BLUE);
 #endif
